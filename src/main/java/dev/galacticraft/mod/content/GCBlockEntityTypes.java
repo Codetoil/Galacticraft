@@ -47,8 +47,6 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<WireBlockEntity> WIRE_T2 = register(Constant.Block.HEAVY_ALUMINUM_WIRE, (pos, state) -> WireBlockEntity.createT2(GCBlockEntityTypes.WIRE_T2, pos, state), /*GCBlocks.HEAVY_ALUMINUM_WIRE,*/ GCBlocks.HEAVY_SEALABLE_ALUMINUM_WIRE);
     public static final BlockEntityType<GlassFluidPipeBlockEntity> GLASS_FLUID_PIPE = register(Constant.Block.GLASS_FLUID_PIPE, GlassFluidPipeBlockEntity::new, GlassFluidPipeBlockEntity.COMPATIBLE_BLOCKS.toArray(new Block[0]));
     public static final BlockEntityType<WalkwayBlockEntity> WALKWAY = register(Constant.Block.WALKWAY, WalkwayBlockEntity::new, GCBlocks.WALKWAY);
-    public static final BlockEntityType<WireWalkwayBlockEntity> WIRE_WALKWAY = register(Constant.Block.WIRE_WALKWAY, WireWalkwayBlockEntity::new, GCBlocks.WIRE_WALKWAY);
-    public static final BlockEntityType<FluidPipeWalkwayBlockEntity> FLUID_PIPE_WALKWAY = register(Constant.Block.FLUID_PIPE_WALKWAY, FluidPipeWalkwayBlockEntity::new, GCBlocks.FLUID_PIPE_WALKWAY);
 
     // MACHINES
     public static final BlockEntityType<CircuitFabricatorBlockEntity> CIRCUIT_FABRICATOR = register(Constant.Block.CIRCUIT_FABRICATOR, CircuitFabricatorBlockEntity::new, GCBlocks.CIRCUIT_FABRICATOR);
