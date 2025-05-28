@@ -22,16 +22,20 @@
 
 package dev.galacticraft.mod.world.biome;
 
+import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.GCSounds;
 import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class MoonBiomes {
@@ -52,10 +56,6 @@ public class MoonBiomes {
     }
 
     public static Biome createLunarLowlands(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
-        return MoonBiomes.moon(featureLookup, carverLookup, new BiomeGenerationSettings.Builder(featureLookup, carverLookup));
-    }
-
-    public static Biome createOlivineSpikes(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         return MoonBiomes.moon(featureLookup, carverLookup, new BiomeGenerationSettings.Builder(featureLookup, carverLookup));
     }
 
@@ -104,6 +104,7 @@ public class MoonBiomes {
         MoonBiomes.addDefaultSoftDisks(generation);
         MoonBiomes.monsters(spawnBuilder, 95, 5, 100);
 
+        generation.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MOON_CRATER_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MOON_CANYON_CARVER);
 
@@ -114,6 +115,95 @@ public class MoonBiomes {
                 .downfall(0.0F)
                 .specialEffects(specialEffects.build())
                 .generationSettings(generation.build())
+                .build();
+    }
+
+    public static Biome createCheeseCaves(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        //generation.addCarver(GenerationStep.Carving.AIR, carverLookup.getOrThrow(Constant.key(Registries.CONFIGURED_CARVER, "cheese_cave_carver")));
+
+        MoonBiomes.addDefaultMoonOres(generation);
+        MoonBiomes.addDefaultSoftDisks(generation); // Keep if you plan to add disk features later
+
+        MobSpawnSettings.Builder spawns = new MobSpawnSettings.Builder();
+        MoonBiomes.monsters(spawns, 95, 5, 100);
+
+        BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
+                .fogColor(10518688)
+                .waterColor(4159204)
+                .waterFogColor(329011)
+                .skyColor(0)
+                .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_MOON))
+                .build();
+
+        return new Biome.BiomeBuilder()
+                .mobSpawnSettings(spawns.build())
+                .hasPrecipitation(false)
+                .temperature(2.0F)
+                .downfall(0.0F)
+                .specialEffects(effects)
+                .generationSettings(generation.build())
+                .build();
+    }
+
+    public static Biome createOlivineCaves(HolderGetter<PlacedFeature> features, HolderGetter<ConfiguredWorldCarver<?>> carvers) {
+        BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(features, carvers);
+        generation.addCarver(GenerationStep.Carving.AIR, carvers.getOrThrow(Constant.key(Registries.CONFIGURED_CARVER, "olivine_cave_carver")));
+
+        // Add features
+        MoonBiomes.addDefaultMoonOres(generation);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Constant.key(Registries.PLACED_FEATURE, "olivine_beam"));
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Constant.key(Registries.PLACED_FEATURE, "basalt_beam"));
+
+        MobSpawnSettings.Builder spawns = new MobSpawnSettings.Builder();
+        MoonBiomes.monsters(spawns, 95, 5, 100);
+
+        BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
+                .fogColor(10518688)
+                .waterColor(4159204)
+                .waterFogColor(329011)
+                .skyColor(0)
+                .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_MOON))
+                .build();
+
+        return new Biome.BiomeBuilder()
+                .mobSpawnSettings(spawns.build())
+                .hasPrecipitation(false)
+                .temperature(2.0F)
+                .downfall(0.0F)
+                .specialEffects(effects)
+                .generationSettings(generation.build())
+                .build();
+    }
+
+    public static Biome createGlacialCaverns(HolderGetter<PlacedFeature> features, HolderGetter<ConfiguredWorldCarver<?>> carvers) {
+        BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(features, carvers);
+        //generation.addCarver(GenerationStep.Carving.AIR, carvers.getOrThrow(Constant.key(Registries.CONFIGURED_CARVER, "glacial_cavern_carver")));
+
+        MoonBiomes.addDefaultMoonOres(generation);
+
+        MobSpawnSettings.Builder spawns = new MobSpawnSettings.Builder();
+        MoonBiomes.monsters(spawns, 95, 5, 100);
+
+        BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
+                .fogColor(10518688)
+                .waterColor(4159204)
+                .waterFogColor(329011)
+                .skyColor(0)
+                .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_MOON))
+                .build();
+
+        return new Biome.BiomeBuilder()
+                .mobSpawnSettings(spawns.build())
+                .hasPrecipitation(false)
+                .temperature(2.0F)
+                .downfall(0.0F)
+                .specialEffects(effects)
+                .generationSettings(generation.build())
+                .temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
                 .build();
     }
 }

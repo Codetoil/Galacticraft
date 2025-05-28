@@ -42,14 +42,39 @@ import java.util.List;
 public class GCPlacedFeatures {
     public static final ResourceKey<PlacedFeature> OIL_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("oil_lake"));
 
+    // --- OLIVINE BIOME ---
+    public static final ResourceKey<PlacedFeature> OLIVINE_BEAM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("olivine_beam"));
+    public static final ResourceKey<PlacedFeature> BASALT_BEAM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("basalt_beam"));
+
     public static void bootstrapRegistries(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
+
         context.register(OIL_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.OIL_LAKE), List.of(
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 RarityFilter.onAverageOnceEvery(70),
                 InSquarePlacement.spread(),
                 BiomeFilter.biome()
         )));
+
+        context.register(OLIVINE_BEAM, new PlacedFeature(
+                configuredFeatureLookup.getOrThrow(GCConfiguredFeature.OLIVINE_BEAM),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(70),
+                        InSquarePlacement.spread(),
+                        PlacementUtils.FULL_RANGE,
+                        BiomeFilter.biome()
+                )
+        ));
+
+        context.register(BASALT_BEAM, new PlacedFeature(
+                configuredFeatureLookup.getOrThrow(GCConfiguredFeature.BASALT_BEAM),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(120),  //todo tweak rarities
+                        InSquarePlacement.spread(),
+                        PlacementUtils.FULL_RANGE,
+                        BiomeFilter.biome()
+                )
+        ));
     }
 
     public static void register() {

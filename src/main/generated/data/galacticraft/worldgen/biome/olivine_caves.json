@@ -1,11 +1,6 @@
 {
   "carvers": {
-    "air": [
-      "galacticraft:moon_highlands_cave_carver",
-      "minecraft:cave",
-      "galacticraft:moon_crater_carver",
-      "galacticraft:moon_canyon_carver"
-    ]
+    "air": "galacticraft:olivine_cave_carver"
   },
   "downfall": 0.0,
   "effects": {
@@ -42,6 +37,10 @@
       "galacticraft:ore_cheese_moon",
       "galacticraft:ore_cheese_large_moon",
       "galacticraft:ore_lunar_sapphire_moon"
+    ],
+    [
+      "galacticraft:olivine_beam",
+      "galacticraft:basalt_beam"
     ]
   ],
   "has_precipitation": false,

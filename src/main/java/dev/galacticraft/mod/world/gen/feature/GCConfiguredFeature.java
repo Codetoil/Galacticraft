@@ -24,6 +24,7 @@ package dev.galacticraft.mod.world.gen.feature;
 
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -31,13 +32,33 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public class GCConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_LAKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("oil_lake"));
 
+    // --- OLIVINE BIOME ---
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OLIVINE_BEAM = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("olivine_beam"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BASALT_BEAM = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("basalt_beam"));
+
     public static void bootstrapRegistries(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        context.register(OIL_LAKE, new ConfiguredFeature<>(Feature.LAKE,
-                new LakeFeature.Configuration(BlockStateProvider.simple(GCBlocks.CRUDE_OIL), BlockStateProvider.simple(Blocks.STONE))));
+        context.register(OIL_LAKE, new ConfiguredFeature<>(
+                Feature.LAKE,
+                new LakeFeature.Configuration(
+                        BlockStateProvider.simple(GCBlocks.CRUDE_OIL),
+                        BlockStateProvider.simple(Blocks.STONE)
+                )
+        ));
+
+        context.register(OLIVINE_BEAM, new ConfiguredFeature<>(
+                GCFeatures.OLIVINE_BEAM,
+                NoneFeatureConfiguration.INSTANCE
+        ));
+
+        context.register(BASALT_BEAM, new ConfiguredFeature<>(
+                GCFeatures.BASALT_BEAM,
+                NoneFeatureConfiguration.INSTANCE
+        ));
     }
 }
