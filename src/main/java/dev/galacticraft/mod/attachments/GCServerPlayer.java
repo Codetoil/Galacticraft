@@ -25,6 +25,7 @@ package dev.galacticraft.mod.attachments;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.galacticraft.api.rocket.RocketData;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -36,6 +37,8 @@ public class GCServerPlayer {
     private RocketData rocketData;
     public NonNullList<ItemStack> stacks = NonNullList.withSize(2, ItemStack.EMPTY);
     public long fuel;
+    private boolean buildingHyperloop = false;
+    private BlockPos startLinkPos = null;
 
     public static final Codec<GCServerPlayer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RocketData.CODEC.optionalFieldOf("rocket_data").forGetter(o -> Optional.ofNullable(o.rocketData)),
@@ -93,5 +96,21 @@ public class GCServerPlayer {
             if (getRocketStacks().get(stack).isEmpty())
                 if (stack == getRocketStacks().size() - 2)
                     getRocketStacks().set(stack, launchpad == null ? ItemStack.EMPTY : launchpad);
+    }
+
+    public boolean isBuildingHyperloop() {
+        return buildingHyperloop;
+    }
+
+    public void setBuildingHyperloop(boolean buildingHyperloop) {
+        this.buildingHyperloop = buildingHyperloop;
+    }
+
+    public BlockPos getStartLinkPos() {
+        return startLinkPos;
+    }
+
+    public void setStartLinkPos(BlockPos startLinkPos) {
+        this.startLinkPos = startLinkPos;
     }
 }

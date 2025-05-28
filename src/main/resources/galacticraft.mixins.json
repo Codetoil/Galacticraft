@@ -44,8 +44,8 @@
     "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.MinecraftMixin",
+    "client.ModelManagerMixin",
     "client.PauseMenuScreenMixin",
-    "client.ScreenEffectRendererMixin",
     "client.SpriteContentAccessor"
   ],
   "minVersion": "0.8.0",

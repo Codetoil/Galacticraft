@@ -20,19 +20,35 @@
  * SOFTWARE.
  */
 
-package dev.galacticraft.mod.client.render.block.entity;
+package dev.galacticraft.mod.content.block.entity;
 
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class GCBlockEntityRenderer {
-    public static void register() {
-        BlockEntityRenderers.register(GCBlockEntityTypes.BASIC_SOLAR_PANEL, SolarPanelBlockEntityRenderer::new);
-        BlockEntityRenderers.register(GCBlockEntityTypes.ADVANCED_SOLAR_PANEL, SolarPanelBlockEntityRenderer::new);
-        BlockEntityRenderers.register(GCBlockEntityTypes.GLASS_FLUID_PIPE, FluidPipeBlockEntityRenderer::new);
-        BlockEntityRenderers.register(GCBlockEntityTypes.OXYGEN_BUBBLE_DISTRIBUTOR, BubbleDistributorRenderer::new);
-        BlockEntityRenderers.register(GCBlockEntityTypes.ROCKET_WORKBENCH, RocketWorkbenchBlockEntityRenderer::new);
-        //BlockEntityRenderers.register(GCBlockEntityTypes.CANNED_FOOD, CannedFoodBlockEntityRenderer::new);
-        BlockEntityRenderers.register(GCBlockEntityTypes.TRANSPORT_TUBE, TransportTubeBlockEntityRenderer::new);
+public class TransportTubeBlockEntity extends BlockEntity {
+    private BlockPos connectionPos;
+    private boolean isOwner = false;
+    public TransportTubeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
+
+    public TransportTubeBlockEntity(BlockPos pos, BlockState state) {
+        this(GCBlockEntityTypes.TRANSPORT_TUBE, pos, state);
+    }
+
+    public void addConnection(BlockPos pos, boolean isOwner) {
+        this.connectionPos = pos;
+        this.isOwner = isOwner;
+    }
+
+    public BlockPos getConnectionPos() {
+        return this.connectionPos;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
     }
 }
