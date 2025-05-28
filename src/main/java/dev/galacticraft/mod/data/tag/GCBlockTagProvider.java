@@ -23,6 +23,7 @@
 package dev.galacticraft.mod.data.tag;
 
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.api.block.entity.PipeColor;
 import dev.galacticraft.mod.content.GCBlockRegistry;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.tag.GCBlockTags;
@@ -36,10 +37,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -480,6 +483,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(stairs)
                 .add(slabs)
                 .add(walls)
+                .add(Arrays.stream(PipeColor.byRainbowOrder()).map(GCBlocks.GLASS_FLUID_PIPES::get).toArray(Block[]::new))
                 .add(
                         GCBlocks.MARS_IRON_ORE,
                         GCBlocks.ASTEROID_IRON_ORE,
@@ -677,7 +681,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .forEach(replaceableTagAppender::add);
     }
 
-    protected FabricTagProvider<Block>.FabricTagBuilder tag(TagKey<Block> tag) {
+    protected FabricTagProvider<Block>.@NotNull FabricTagBuilder tag(TagKey<Block> tag) {
         return this.getOrCreateTagBuilder(tag);
     }
 }
