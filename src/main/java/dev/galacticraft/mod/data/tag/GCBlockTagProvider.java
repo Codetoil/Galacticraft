@@ -25,7 +25,6 @@ package dev.galacticraft.mod.data.tag;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlockRegistry;
 import dev.galacticraft.mod.content.GCBlocks;
-import dev.galacticraft.mod.content.block.GCBlock;
 import dev.galacticraft.mod.tag.GCBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -38,9 +37,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -433,7 +432,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         List<GCBlockRegistry.DecorationSet> decorations = GCBlocks.BLOCKS.getDecorations();
 
         Map<String, TagKey<Block>> decoTags = new HashMap<>();
- 
+
         decoTags.put("aluminum_decoration", GCBlockTags.ALUMINUM_DECORATION_BLOCKS);
         decoTags.put("bronze_decoration", GCBlockTags.BRONZE_DECORATION_BLOCKS);
         decoTags.put("copper_decoration", GCBlockTags.COPPER_DECORATION_BLOCKS);
