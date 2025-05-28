@@ -100,7 +100,7 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
     private static final EntityDataAccessor<RocketData> ROCKET_DATA = SynchedEntityData.defineId(RocketEntity.class, GCEntityDataSerializers.ROCKET_DATA);
     private static final EntityDataAccessor<Long> FUEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.LONG);
 
-    private final boolean debugMode = false && FabricLoader.getInstance().isDevelopmentEnvironment();
+    private final boolean debugMode = true && FabricLoader.getInstance().isDevelopmentEnvironment();
 
     private FuelDock linkedPad = null;
     private final SingleFluidStorage tank = SingleFluidStorage.withFixedCapacity(FluidUtil.bucketsToDroplets(100), () -> {
@@ -492,7 +492,7 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
         }
 
         if (getLaunchStage().ordinal() >= LaunchStage.LAUNCHED.ordinal()) {
-            if (ticksSinceJump > 1000 && this.onGround()) {
+            if (ticksSinceJump > 1 && this.onGround()) {
                 boolean createFire = this.level().getDefaultBreathable();
 
                 for (int i = 0; i < 4; i++) {
