@@ -530,7 +530,6 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.AIR_LOCK_CONTROLLER,
                         GCBlocks.SEALABLE_ALUMINUM_WIRE,
                         GCBlocks.HEAVY_SEALABLE_ALUMINUM_WIRE,
-                        GCBlocks.GLASS_FLUID_PIPE,
 
                         GCBlocks.SILICON_BLOCK,
                         GCBlocks.METEORIC_IRON_BLOCK,
